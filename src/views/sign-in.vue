@@ -10,11 +10,12 @@
           <h2>欢迎!<br>
             <span class="rignt_tips">在下面输入您的详细信息登录</span>
           </h2>
-          <form action="" class="form">
-            <div class="ipt">手机号：<input type="text"></div>
-            <div class="ipt">密码：<input type="password"></div>
-            <router-link to="/sign-up" class="forget">没有账号？</router-link>
-            <input type="submit" value="提交" class="submit"> 
+          <form 
+           class="form">
+            <div class="ipt">手机号：<input type="text" id="phone" name="phone" v-model="loginForm.phone" autocomplete="off"></div>
+            <div class="ipt">密码：<input type="password" id="password" name="password" v-model="loginForm.password" autocomplete="off" required></div>
+            <router-link to="/sign-up" class="forget">没有账号？去注册</router-link>
+            <input type="button" value="登录" class="submit" @click="submitForm"> 
           </form>
       </div>
     </div>
@@ -22,8 +23,45 @@
 </template>
 
 <script>
+import BaseUrl from '../api/index';
+import {mapMutations} from 'vuex';
 export default {
-
+  name: 'sign-in',
+  data(){
+    return{
+       loginForm:{
+          phone: '',
+          password: '',
+      },
+      errors: [],
+      userToken: ''
+    } 
+  },
+  methods: {
+    ...mapMutations(['changeLogin']),
+    submitForm(){
+      let v = this;
+      this.$axios({
+        method: 'POST',
+        url: BaseUrl + '/student/login',
+        data:{
+          'phone': v.loginForm.phone,
+          'password': v.loginForm.password
+        }
+      }).then(function(res){
+        console.log(res.data);
+        if(res.data.code == 1){
+          v.userToken = res.data.data;
+          v.changeLogin({Authorization: v.userToken});
+          v.$router.push('/');
+          v.$store.commit('LoginStatus', true);
+          alert('登录成功');
+        }
+      }).catch(function(err){
+        console.log("err" + err);
+      })
+    }
+  }
 }
 </script>
 

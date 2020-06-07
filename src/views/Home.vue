@@ -3,7 +3,7 @@
     <div class="bg_img">
       <img src="../assets/bg.jpg" alt="">
       <h2>等级考试报名系统</h2>
-      <div class="time"> {{ date | dateFormat }}</div>
+      <div class="time"> {{ date | dateFormat }} <span v-show="isLogin">已登录</span></div>
     </div>
     <div class="nav">
       <div class="imgm">
@@ -98,7 +98,8 @@ export default {
   name: 'Home',
   data(){
     return {
-      date: new Date()
+      date: new Date(),
+      isLogin: localStorage.getItem('isLogin')
     }
   },
   filters: {
