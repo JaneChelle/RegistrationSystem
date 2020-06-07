@@ -15,7 +15,7 @@
             <div class="ipt">手机号：<input type="text" id="phone" name="phone" v-model="loginForm.phone" autocomplete="off"></div>
             <div class="ipt">密码：<input type="password" id="password" name="password" v-model="loginForm.password" autocomplete="off" required></div>
             <router-link to="/sign-up" class="forget">没有账号？去注册</router-link>
-            <input type="button" value="登录" class="submit" @click="submitForm"> 
+            <el-button type="button" value="登录" class="submit" @click="submitForm">登录</el-button>
           </form>
       </div>
     </div>
@@ -49,16 +49,28 @@ export default {
           'password': v.loginForm.password
         }
       }).then(function(res){
-        console.log(res.data);
+        // console.log(res.data);
         if(res.data.code == 1){
           v.userToken = res.data.data;
           v.changeLogin({Authorization: v.userToken});
           v.$router.push('/');
           v.$store.commit('LoginStatus', true);
-          alert('登录成功');
+          v.$message({
+            message: '登录成功',
+            type: 'success',
+            showClose: true
+          })
+        } else {
+          v.$message({
+            message: res.data.msg,
+            showClose: true
+          })
         }
       }).catch(function(err){
-        console.log("err" + err);
+         v.$message({
+            message:err,
+            showClose: true
+          })
       })
     }
   }
@@ -144,7 +156,6 @@ export default {
           background-color #A74C8F
           border none
           height 50px
-          line-height 50px
           margin-top 30px
           color #fff
           font-size 18px
