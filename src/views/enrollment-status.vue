@@ -15,25 +15,24 @@
         <div class="main">
           <h2>欢迎登录CET考试报名系统</h2>
           <div class="write">
-            <table>
-                <thead>
-                    <tr><td colspan="2" class="tdh">基本信息</td></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>考次名称：</td>
-                        <td>2020年上半年CET考试</td>
-                    </tr>
-                    <tr>
-                        <td>报名状态：</td>
-                        <td class="info">未报名（或当前通行证账号非报名时账号）</td>
-                    </tr>
-                    <tr>
-                        <td>残疾考生合理便利线下申请截止时间：</td>
-                        <td>2019-11-14 09:00</td>
-                    </tr>
-                </tbody>
-            </table>
+           <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="" prop="name">
+                <el-input  v-model="ruleForm.name" autocomplete="off" placeholder="请输入姓名"></el-input>
+            </el-form-item>
+            <el-form-item label="" prop="school">
+                <el-input v-model="ruleForm.school" autocomplete="off" placeholder="请输入学校"></el-input>
+            </el-form-item>
+            <el-form-item label="" prop="className">
+                <el-input type="text" v-model="ruleForm.className" autocomplete="off" placeholder="请输入班级"></el-input>
+            </el-form-item>
+            <el-form-item label="" prop="idCard">
+                <el-input type="text" v-model="ruleForm.idCard" autocomplete="off" placeholder="请输入身份证号"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+          </el-form>
             <div class="btn"><router-link class="aa" to="/enroll">开始报名</router-link></div>
           </div>
         </div>
