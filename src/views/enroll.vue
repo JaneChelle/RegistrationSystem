@@ -114,7 +114,7 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-           alert('submit!');
+          //  alert('submit!');
             let v = this;
             this.$axios({
               method: 'post',
