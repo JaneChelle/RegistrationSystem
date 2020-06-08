@@ -138,7 +138,7 @@ methods: {
         }).then(function(res){
           if(res.data.code == 1){
               _this.ruleForm.post = JSON.parse(JSON.stringify(res.data.data))
-
+              console.log(_this.ruleForm.post);  
           } else {
             _this.ruleForm.error = res.data.data.msg
             console.log(_this.error)

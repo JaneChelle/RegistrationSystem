@@ -11,17 +11,17 @@
             <span class="rignt_tips">在下面输入您的详细信息注册</span>
           </h2>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="电子邮件" prop="email">
-                <el-input  v-model="ruleForm.email" autocomplete="off"></el-input>
+            <el-form-item label="" prop="email">
+                <el-input placeholder="电子邮件" v-model="ruleForm.email" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="手机号" prop="phone">
-                <el-input v-model="ruleForm.phone" autocomplete="off"></el-input>
+            <el-form-item label="" prop="phone">
+                <el-input placeholder="手机号" v-model="ruleForm.phone" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="密码" prop="pass">
-                <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+            <el-form-item label="" prop="pass">
+                <el-input placeholder="密码" type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="确认密码" prop="checkPass">
-                <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+            <el-form-item label="" prop="checkPass">
+                <el-input placeholder="确认密码" type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -118,7 +118,6 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-           alert('submit!');
             let v = this;
             this.$axios({
               method: 'post',
@@ -212,4 +211,8 @@
        width 70%
        .rignt_tips
          font-size 14px
+      form
+        width 75%  
+      form>div>div
+        margin-left 0 !important    
 </style>

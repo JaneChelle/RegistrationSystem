@@ -38,46 +38,9 @@
         <div class="right">
           <div class="title"><i class="iconfont icongonggao"></i>等级考试最新动态</div>
           <div class="iframe">
-              <div class="content">
-                  <h5>2019年下半年考试时间：</h5>
-                  <ul>
-                      <li>笔试：2019-12-14</li>
-                      <li>上午：英语四级 &nbsp; 下午：英语六级</li>
-                      <li>口试：</li>
-                      <li>2019-11-23：英语四级 &nbsp; 2019-11-24：英语六级</li>
-                  </ul>
-                  <hr class="hr_line">
-              </div>
-
-              <div class="content">
-                  <h5>2019年下半年准考证打印提示：</h5>
-                  <ul>
-                      <li>1.2019年下半年准考证打印仅限<span style="color:red">北京、天津、河北、山西、内蒙
-                          古吉林、黑龙江、上海、江苏、安徽、福建、江西、山东、河南、
-                          湖北、湖南、广东、广西、海南、
-                          庆、四小、贵州、云南、西藏、
-                          甘肃、青海、宁夏、新疆、澳门(口语)。</span>
-                      </li>
-                      <li>2.口试准考证打印时间: 11月18日。</li>
-                      <li>3.笔试准考证打印时间:请以考点通知时间为准，如考点采用集体打印方式, 请联系学校相关部门领取准考证。
-                      </li>
-                  </ul>
-                  <hr class="hr_line">
-              </div>
-
-              <div class="content">
-                  <h5>2019年下半年准考证打印提示：</h5>
-                  <ul>
-                      <li>1.2019年下半年准考证打印仅限<span style="color:red">北京、天津、河北、山西、内蒙
-                          古吉林、黑龙江、上海、江苏、安徽、福建、江西、山东、河南、
-                          湖北、湖南、广东、广西、海南、
-                          庆、四小、贵州、云南、西藏、
-                          甘肃、青海、宁夏、新疆、澳门(口语)。</span>
-                      </li>
-                      <li>2.口试准考证打印时间: 11月18日。</li>
-                      <li>3.笔试准考证打印时间:请以考点通知时间为准，如考点采用集体打印方式, 请联系学校相关部门领取准考证。
-                      </li>
-                  </ul>
+              <div class="content" v-for="(value, key,index) in notice" :key="index" >
+                 <div v-html="value.content"></div>
+                <hr class="hr_line">
               </div>
           </div>
         </div>
@@ -96,13 +59,18 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import BaseUrl from '../api/index';
 export default {
   name: 'Home',
   data(){
     return {
       date: new Date(),
-      isLogin: localStorage.getItem('isLogin')
+      isLogin: localStorage.getItem('isLogin'),
+      notice: null
     }
+  },
+  created(){
+    this.findNotice()
   },
   filters: {
     dateFormat: function(){
@@ -143,6 +111,24 @@ export default {
             showClose: true
           })
           location.reload(true);
+    },
+    findNotice(){
+      this.$axios({
+        method:'get',
+        url: BaseUrl + '/notice/findAll',
+        headers: {
+          token: window.localStorage['Authorization']
+        }
+      }).then((res) => {
+        if(res.data.code == 1){
+          this.notice = res.data.data;
+        } else{
+          console.log(res.data.msg);
+          
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
     }
   },
   beforeDestroy:function(){
@@ -252,7 +238,7 @@ export default {
       .iframe
         overflow-y scroll 
         position absolute
-        height 350px
+        max-height 350px
         top 50px
         &::-webkit-scrollbar
           width 10px
