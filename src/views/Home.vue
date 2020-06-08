@@ -3,7 +3,9 @@
     <div class="bg_img">
       <img src="../assets/bg.jpg" alt="">
       <h2>等级考试报名系统</h2>
-      <div class="time"> {{ date | dateFormat }} <span v-show="isLogin">已登录</span></div>
+      <div class="time"> {{ date | dateFormat }} 
+        <el-link v-show="isLogin" @click="exit" :underline="false" class="font">退出登录</el-link>
+        </div>
     </div>
     <div class="nav">
       <div class="imgm">
@@ -132,7 +134,17 @@ export default {
          _this.date=new Date(); //修改数据date
      } , 1000)
  },
-  methods: {},
+  methods: {
+    exit(){
+      localStorage.clear(); 
+      this.$message({
+            message: '退出成功',
+            type: 'success',
+            showClose: true
+          })
+          location.reload(true);
+    }
+  },
   beforeDestroy:function(){
     if(this.timer){
       clearInterval(this.timer);//在vue实例销毁钱，清除我们的定时器
@@ -170,6 +182,8 @@ export default {
        right 10%
        color #ffffff
        letter-spacing 2px
+       .font
+         color #ffffff
   .nav
     width 100%
     height 100px

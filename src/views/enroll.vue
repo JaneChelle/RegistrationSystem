@@ -6,8 +6,10 @@
             <img src="../assets/logo2.png" alt="">
           </div>
           <div class="name">
+            <router-link  to="/">
             <h2>等级考试报名系统</h2>
             <span>Grade examination registration</span>
+            </router-link>
           </div>
         </div>
       </div>
@@ -31,6 +33,7 @@
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
+                <el-button type="primary"> <router-link to="/" class="fontLK">返回首页</router-link></el-button>
             </el-form-item>
           </el-form>
           </div>
@@ -212,6 +215,9 @@ export default {
         margin 20px auto
         form>div>div
           margin-left 0 !important
+          .fontLK
+            color #ffffff
+            text-decoration none 
           
   .footer
     width 60%

@@ -6,8 +6,10 @@
             <img src="../assets/logo2.png" alt="">
           </div>
           <div class="name">
+            <router-link  to="/">
             <h2>等级考试报名系统</h2>
             <span>Grade examination registration</span>
+            </router-link>
           </div>
         </div>
       </div>
@@ -30,6 +32,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="modifyData('ruleForm')">提交</el-button>
+                <el-button type="primary"> <router-link to="/" class="fontLK">返回首页</router-link></el-button>
             </el-form-item>
           </el-form>
           <div v-if="ruleForm.error">
@@ -241,42 +244,9 @@ methods: {
         padding 5%
         box-sizing border-box
         margin 20px auto
-        table
-          width 100%
-          padding 10px
-          border 1px solid #dddddd
-          box-shadow 2px 2px 5px #cccccc 
-          text-align center
-          margin-bottom 20px
-          border-collapse: collapse;
-          thead
-            background-color #a74c8f
-            width 100%
-            .tdh
-              color #ffffff
-              height 40px
-              border 1px solid #a74c8f
-              letter-spacing 2px     
-          tbody
-            td 
-             height 40px
-             border 1px solid #000
-            .info
-              color red
-              font-weight 600  
-        .btn
-          width 20%
-          margin 0 auto
-          height 40px
-          line-height 40px
-          border-radius 5px     
-          background-color #a74c8f
-          text-align center
-          letter-spacing 2px
-          .aa
-             color #ffffff
-             text-decoration none
-  
+        .fontLK
+          color #ffffff
+          text-decoration none
   .footer
     width 60%
     color #000

@@ -10,25 +10,6 @@
           <h2>欢迎!<br>
             <span class="rignt_tips">在下面输入您的详细信息注册</span>
           </h2>
-          <!-- <form 
-            id="app"
-            @submit="checkFrom"
-            action="https://vuejs.org/"
-            method="post"
-            novalidate="true"
-            class="form">
-            <p v-if="errors.length">
-              <b>Please correct the following error(s):</b>
-              <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li> 
-              </ul>
-            </p>
-            <div class="ipt">电子邮件：<input id="email" name="email" type="email" v-model="email"></div>
-            <div class="ipt">手机号：<input id="phone" name="phone" type="text" v-model="phone"></div>
-            <div class="ipt">密码：<input id="password" name="password" type="password" v-model="password"></div>
-            <div class="ipt">密码确认：<input id="r_password" name="r_password" type="password" v-model="r_password"></div>
-            <input type="submit" value="提交" class="submit">
-          </form> -->
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="电子邮件" prop="email">
                 <el-input  v-model="ruleForm.email" autocomplete="off"></el-input>
@@ -231,27 +212,4 @@
        width 70%
        .rignt_tips
          font-size 14px
-      .form
-        width 70%
-        .ipt
-          border-bottom 1px solid #000
-          height 50px
-          line-height 50px
-          input 
-            border none 
-            outline none 
-            line-height 30px
-            background-color rgba(255,255,255,0)
-            &:-webkit-autofill 
-              transition:background-color 5000s ease-in-out 0s
-        .submit
-          width 100%
-          background-color #A74C8F
-          border none
-          height 50px
-          line-height 50px
-          margin-top 30px
-          color #fff
-          font-size 18px
-          letter-spacing 10px    
 </style>
