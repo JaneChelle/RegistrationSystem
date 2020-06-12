@@ -14,14 +14,7 @@
       <div class="content">
         <div class="main">
           <h2>资格信息查询</h2>
-          <div class="write">
-            <form action="">
-              <div class="boxInp"><input type="text" placeholder="请输入姓名" value="王静晓"></div>
-              <div class="boxInp"><input type="text" placeholder="请输入学校" value="河南科技学院"></div>
-              <div class="boxInp"><input type="text" placeholder="请输入身份证号" value="410581199811155587"></div>
-              <input type="submit" value="提交修改" class="submit">
-            </form>
-          </div>
+          <a :href="getGoodsHref()" class="down"></a>
         </div>
       </div>
       <div class="footer">
@@ -33,7 +26,19 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+        link: this.$route.query.link
+    }
+},
+mounted(){
+  this.getGoodsHref()
+},
+methods: {
+    getGoodsHref: function() {
+        return this.link;
+    }
+  }
 }
 </script>
 
@@ -86,41 +91,9 @@ export default {
        border-bottom 1px solid #000
        font-weight 400
        padding 10px
-      .write
-        width 90%
-        box-shadow 2px 2px 5px #736d6d
-        padding 5%
-        box-sizing border-box
-        margin 20px auto
-        form
-          .boxInp
-            width 100%
-            height 40px
-            margin 15px 0
-            &:first-child
-              margin-top 0
-            input 
-              height 40px
-              width 100%
-              line-height 40px
-              border none 
-              outline none
-              font-size 16px
-              border-bottom 1px solid
-              transition left 0.2s linear, top 0.2s cubic-bezier(.48,0,.94,.28);
-              &:focus
-                border-bottom 2px solid #a74c8f
-          .submit
-              height 50px
-              width 100%
-              line-height 50px
-              margin-top 10px
-              border none 
-              outline none
-              font-size 16px
-              background-color #a74c8f
-              color #ffffff
-              border-radius 5px 
+      .down
+        color #000
+        text-decoration underline
   .footer
     width 60%
     color #000

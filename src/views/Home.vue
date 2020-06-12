@@ -27,12 +27,13 @@
               </li>  
             <li>
               <i class="iconfont icongenshuixueicon_huabanfuben"></i>
-              <router-link to="{ name: 'home' }">下载准考证</router-link>
-              </li>
+              <span @click="this.download">下载准考证</span>
+              <a href="" class="target" ref="target"></a>
+            </li>
             <li>
               <i class="iconfont iconchaxun2"></i>
               <router-link to="{ name: 'home' }">查看成绩</router-link>
-              </li>
+            </li>
           </ul>
         </div>
         <div class="right">
@@ -57,8 +58,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-//  import EnrollmentStatus from './enrollment-status.vue'
 import BaseUrl from '../api/index';
 export default {
   name: 'Home',
@@ -104,6 +103,7 @@ export default {
      } , 1000)
  },
   methods: {
+    //退出登录
     exit(){
       localStorage.clear(); 
       this.$message({
@@ -113,6 +113,7 @@ export default {
           })
           location.reload(true);
     },
+    //获取公告
     findNotice(){
       this.$axios({
         method:'get',
@@ -143,10 +144,9 @@ export default {
         }).then(function(res){
           if(res.data.code == 1){
             _this.post = res.data.data;
-            console.log(JSON.stringify(_this.post));
-            
+            // console.log(JSON.stringify(_this.post));
             localStorage.setItem('post',JSON.stringify(_this.post));
-            console.log(_this.post); 
+            // console.log(_this.post); 
               _this.$router.push({
                 path:'/enrollment-status',
                 query: { name: _this.post}
@@ -165,6 +165,33 @@ export default {
           console.log("错误")
         })
     },
+    //下载准考证
+    download(){
+      this.$axios({
+        method: 'post',
+        url: BaseUrl + '/student/downloadTicket',
+        headers: {
+          token: window.localStorage["Authorization"]
+        }
+      }).then((res) => {
+          if(res.data.code == 1){
+            let link = res.data.data;
+            let target = this.$refs.target;   
+             target.setAttribute('href',link);
+             target.click();
+          } else {
+            this.$message({
+            message: res.data.msg,
+            showClose: true
+          })
+          }
+      }).catch(err => {
+          this.$message({
+            message: err,
+            showClose: true
+          })
+      })
+    }
   },
   beforeDestroy:function(){
     if(this.timer){
@@ -255,7 +282,9 @@ export default {
        margin-right 2%
        color #A74C8F
       span 
-       cursor pointer 
+       cursor pointer
+      .target
+        display none  
       a
        color #2C3E50
        text-decoration none

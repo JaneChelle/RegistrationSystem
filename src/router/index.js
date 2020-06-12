@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import SignUp from '../views/sign-up.vue'
 import Enroll from '../views/enroll.vue'
 import EnrollmentStatus from '../views/enrollment-status.vue'
-import ModifyInformation from '../views/modify-information.vue'
+import DownLoadInformation from '../views/download-information.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -44,9 +44,9 @@ Vue.use(VueRouter)
     }
   },
   {
-    path: '/modify-information',
-    name: 'modify-information',
-    component: ModifyInformation
+    path: '/download-information',
+    name: 'download-information',
+    component: DownLoadInformation
   }
 ]
 
