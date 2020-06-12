@@ -134,6 +134,7 @@
                   type: 'success',
                   showClose: true
                 })
+                v.$router.push('/')
               } else{
                 v.$message({
                   message: res.data.msg,
@@ -175,6 +176,7 @@
     .left
       height 100%
       width 60%
+      height 500px
       background-image url('../assets/sign-up1.jpg')
       background-size cover
       background-position center

@@ -23,8 +23,8 @@
               <router-link to="/enroll"> 进入报名</router-link></li>
             <li>
               <i class="iconfont iconchakan-copy-copy"></i>
-              <router-link to="/enrollment-status"> 查看报名状态</router-link></li>  
-
+              <span @click="this.fetchData"> 查看报名状态</span>
+              </li>  
             <li>
               <i class="iconfont icongenshuixueicon_huabanfuben"></i>
               <router-link to="{ name: 'home' }">下载准考证</router-link>
@@ -58,7 +58,7 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+//  import EnrollmentStatus from './enrollment-status.vue'
 import BaseUrl from '../api/index';
 export default {
   name: 'Home',
@@ -66,7 +66,8 @@ export default {
     return {
       date: new Date(),
       isLogin: localStorage.getItem('isLogin'),
-      notice: null
+      notice: null,
+      post: '',
     }
   },
   created(){
@@ -94,7 +95,7 @@ export default {
     }
   },
   components: {
-    // HelloWorld
+    // EnrollmentStatus
   },
   mounted:function() {
      var _this=this; //声明一个变量指向Vue实例this，保证作用域一致
@@ -129,7 +130,41 @@ export default {
       }).catch((err) => {
         console.log(err);
       })
-    }
+    },
+    //获取报名信息
+    fetchData() {
+        var _this = this;
+          this.$axios({
+          method: 'get',
+          url: BaseUrl + '/student/selectSignUp',
+          headers: {
+            token: window.localStorage["Authorization"]
+          }
+        }).then(function(res){
+          if(res.data.code == 1){
+            _this.post = res.data.data;
+            console.log(JSON.stringify(_this.post));
+            
+            localStorage.setItem('post',JSON.stringify(_this.post));
+            console.log(_this.post); 
+              _this.$router.push({
+                path:'/enrollment-status',
+                query: { name: _this.post}
+              });
+          } else {
+            _this.$message({
+            message: res.data.msg,
+            showClose: true
+          })
+          }
+        }).catch(function(err){
+          _this.$message({
+            message: err,
+            showClose: true
+          })
+          console.log("错误")
+        })
+    },
   },
   beforeDestroy:function(){
     if(this.timer){
@@ -211,12 +246,16 @@ export default {
         i 
          color #ffffff
         a
+         color #ffffff
+        span
          color #ffffff 
       i 
        font-size 30px
        vertical-align bottom
        margin-right 2%
        color #A74C8F
+      span 
+       cursor pointer 
       a
        color #2C3E50
        text-decoration none

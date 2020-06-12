@@ -18,6 +18,7 @@
           <h2>欢迎登录CET考试报名系统</h2>
           <div class="write">
            <el-form  :model="ruleForm.post" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" v-if="ruleForm.post">
+            <div ></div>
             <el-form-item label="" prop="name">
                 <el-input  v-model="ruleForm.post.name"  autocomplete="off" placeholder="请输入姓名"></el-input>
             </el-form-item>
@@ -99,8 +100,8 @@ export default {
       school: '',
       className: '',
       idCard: '',
-      post: null,
-    error: null
+      post: JSON.parse(localStorage.getItem('post')),
+      error: null
     },
     rules: {
       name: [
@@ -118,72 +119,44 @@ export default {
     }
   }
 },
-created(){
-  //组件创建完之后获取数据，此时data已经被observed 了
-  this.fetchData()
-},
-watch: {
-// 如果路由有变化，会再次执行该方法
-'$route': 'fetchData'
-},
 methods: {
-  fetchData() {
+    modifyData(formName){
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
         var _this = this;
         this.$axios({
-          method: 'get',
-          url: BaseUrl + '/student/selectSignUp',
+          method: 'post',
+          url: BaseUrl + '/student/updateSignUp',
           headers: {
             token: window.localStorage["Authorization"]
+          },
+          data: {
+            'name': this.ruleForm.post.name,
+            'school': this.ruleForm.post.school,
+            'className': this.ruleForm.post.className,
+            'idCard': this.ruleForm.post.idCard
           }
         }).then(function(res){
           if(res.data.code == 1){
-              _this.ruleForm.post = JSON.parse(JSON.stringify(res.data.data))
-              console.log(_this.ruleForm.post);  
-          } else {
-            _this.ruleForm.error = res.data.data.msg
-            console.log(_this.error)
+            _this.$message({
+              message: '修改成功',  
+              type: 'success',
+              showClose: true
+            });
+          } else{
+          _this.$message({
+              message: res.data.msg,
+              showClose: true
+            })
           }
         }).catch(function(){
-          console.log("错误")
+          console.log("错误");
         })
-      },
-      modifyData(formName){
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-          var _this = this;
-          this.$axios({
-            method: 'post',
-            url: BaseUrl + '/student/updateSignUp',
-            headers: {
-              token: window.localStorage["Authorization"]
-            },
-            data: {
-              'name': this.ruleForm.post.name,
-              'school': this.ruleForm.post.school,
-              'className': this.ruleForm.post.className,
-              'idCard': this.ruleForm.post.idCard
-            }
-          }).then(function(res){
-            if(res.data.code == 1){
-              _this.$message({
-                message: '修改成功',  
-                type: 'success',
-                showClose: true
-              });
-            } else{
-            _this.$message({
-                message: res.data.msg,
-                showClose: true
-              })
-            }
-          }).catch(function(){
-            console.log("错误");
-          })
-          } else {
-            console.log('提交失败');
-            return false;
-          }
-        })
+        } else {
+          console.log('提交失败');
+          return false;
+        }
+      })
 }
 }
 }
