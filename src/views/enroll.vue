@@ -137,7 +137,13 @@ export default {
                   type: 'success',
                   showClose: true
                 })
-              } else{
+                v.$router.push('/');
+              } else if(res.data.code == 401){
+                v.$message({
+                  message: res.data.msg,
+                  showClose: true
+                })
+              } else {
                 v.$message({
                   message: res.data.msg,
                   showClose: true

@@ -277,7 +277,7 @@ export default {
         height 100%        
   .main
     width 80%
-    margin 20px auto 30px
+    margin 20px auto 10px
     display flex
     justify-content center
     box-sizing border-box
