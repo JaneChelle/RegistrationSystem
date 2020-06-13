@@ -327,17 +327,19 @@ export default {
         background-color #A74C8F
         color #ffffff
         padding 0 2%
+        box-sizing border-box
         i 
          font-size 20px
          vertical-align bottom
          margin-right 2% 
       .iframe
+        width 100%
         overflow-y scroll 
         position absolute
         max-height 350px
         top 50px
         &::-webkit-scrollbar
-          width 10px
+          width 8px
           background-color #f5f5f5
         &::-webkit-scrollbar-thumb
           background-color #AAA
