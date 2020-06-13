@@ -23,7 +23,7 @@
               <router-link to="/enroll"> 进入报名</router-link></li>
             <li>
               <i class="iconfont iconchakan-copy-copy"></i>
-              <span @click="this.fetchData"> 查看报名状态</span>
+              <span @click="this.fetchData"> 查看报名信息</span>
               </li>  
             <li>
               <i class="iconfont icongenshuixueicon_huabanfuben"></i>
@@ -32,7 +32,7 @@
             </li>
             <li>
               <i class="iconfont iconchaxun2"></i>
-              <router-link to="{ name: 'home' }">查看成绩</router-link>
+              <span @click="this.score">查看成绩</span>
             </li>
           </ul>
         </div>
@@ -125,8 +125,7 @@ export default {
         if(res.data.code == 1){
           this.notice = res.data.data;
         } else{
-          console.log(res.data.msg);
-          
+          console.log(res.data.msg); 
         }
       }).catch((err) => {
         console.log(err);
@@ -144,13 +143,13 @@ export default {
         }).then(function(res){
           if(res.data.code == 1){
             _this.post = res.data.data;
-            // console.log(JSON.stringify(_this.post));
             localStorage.setItem('post',JSON.stringify(_this.post));
-            // console.log(_this.post); 
               _this.$router.push({
                 path:'/enrollment-status',
                 query: { name: _this.post}
               });
+          } else  if(res.data.code == 401){
+            _this.$router.push("/sign-in");
           } else {
             _this.$message({
             message: res.data.msg,
@@ -179,6 +178,8 @@ export default {
             let target = this.$refs.target;   
              target.setAttribute('href',link);
              target.click();
+          }else if(res.data.code == 401){
+            this.$router.push("/sign-in");      
           } else {
             this.$message({
             message: res.data.msg,
@@ -187,6 +188,33 @@ export default {
           }
       }).catch(err => {
           this.$message({
+            message: err,
+            showClose: true
+          })   
+      })
+    },
+    score(){
+      this.$axios({
+        method: 'get',
+        url: BaseUrl + '/student/selectGrade', 
+        headers:{
+          token: window.localStorage['Authorization']
+        }
+      }).then(res => {
+        if(res.data.code === 1){
+          this.$alert(res.data.data.name+":"+res.data.data.score,"成绩",{
+            confirmButtonText: '确定'
+          })
+        } else if(res.data.code == 401){
+            this.$router.push("/sign-in");      
+        } else {
+            this.$message({
+            message: res.data.msg,
+            showClose: true
+          })
+        }
+      }).catch(err => {
+         this.$message({
             message: err,
             showClose: true
           })
