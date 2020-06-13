@@ -140,7 +140,7 @@ export default {
                 v.$router.push('/');
               } else if(res.data.code == 401){
                 v.$message({
-                  message: res.data.msg,
+                  message: "请重新登录",
                   showClose: true
                 })
               } else {
