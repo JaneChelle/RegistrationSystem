@@ -168,6 +168,7 @@ export default {
   width 100%
   height 100vh
   background-color #EBEFF2
+  overflow hidden
   .head
     width 100%
     height 150px
@@ -227,7 +228,7 @@ export default {
   .footer
     width 60%
     color #000
-    margin 30px auto
+    margin 20px auto
     font-size 12px
     text-align center
     line-height 20px              
