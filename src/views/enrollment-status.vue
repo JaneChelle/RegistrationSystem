@@ -15,7 +15,7 @@
       </div>
       <div class="content">
         <div class="main">
-          <h2>欢迎登录CET考试报名系统</h2>
+          <h2>查看报名信息</h2>
           <div class="write">
            <el-form  :model="ruleForm.post" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" v-if="ruleForm.post">
             <div ></div>

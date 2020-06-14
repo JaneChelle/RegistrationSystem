@@ -15,7 +15,7 @@
       </div>
       <div class="content">
         <div class="main">
-          <h2>资格信息查询</h2>
+          <h2>报名</h2>
           <div class="write">
           <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="" prop="name">
